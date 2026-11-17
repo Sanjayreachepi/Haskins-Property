@@ -1,0 +1,43 @@
+{
+  "name": "haskins-monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "concurrently --kill-others -n WEB,ADMIN,API -c yellow,green,cyan \"npm run dev -w @haskins/web\" \"npm run dev -w @haskins/admin\" \"npm run dev -w @haskins/api\"",
+    "build": "npm run build --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "start": "concurrently --kill-others -n WEB,ADMIN,API \"npm start -w @haskins/web\" \"npm start -w @haskins/admin\" \"npm start -w @haskins/api\"",
+    "db:migrate": "npm run migrate -w @haskins/api",
+    "db:seed": "npm run seed -w @haskins/api",
+    "admin:create": "npm run admin:create -w @haskins/api",
+    "dev:admin": "npm run dev -w @haskins/admin",
+    "dev:api": "npm run dev -w @haskins/api",
+    "dev:web": "npm run dev -w @haskins/web",
+    "dev:all": "npm run dev",
+    "dev:frontend": "npm run dev:web",
+    "start:admin": "npm start -w @haskins/admin",
+    "start:api": "npm start -w @haskins/api",
+    "start:web": "npm start -w @haskins/web",
+    "start:frontend": "npm run start:web",
+    "launch:check": "npm run launch:check -w @haskins/api",
+    "backup": "npm run backup -w @haskins/api",
+    "mail:demo": "node scripts/mail-demo.mjs",
+    "admin:secure": "npm run admin:secure -w @haskins/api"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "concurrently": "^9.2.1",
+    "prettier": "^3.9.10",
+    "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "multer": "^2.5.0"
+  }
+}

@@ -1,0 +1,7 @@
+-- Review the database name and generate a unique password before running as DBA.
+-- Never commit the completed file. Runtime must not use the migration/DBA login.
+CREATE USER 'haskins_app'@'localhost' IDENTIFIED BY 'REPLACE_WITH_A_UNIQUE_GENERATED_PASSWORD';
+GRANT SELECT, INSERT, UPDATE, DELETE ON haskins_db.* TO 'haskins_app'@'localhost';
+-- For a remote API host, use its specific host instead of localhost; do not use '%'.
+-- Apply migrations separately with a schema-management identity, then run the API
+-- with DB_USER=haskins_app and its password supplied through protected environment.

@@ -1,0 +1,146 @@
+HASKINS INDUSTRIAL COMPLEX
+Website and API audit — developer checklist
+
+Use this checklist to approve scope before implementation. Mark each item
+Fix, Keep as is, or Defer. Items 1 and 2 are reproducible release issues.
+Items 3–11 need a product decision or deployment verification.
+
+RELEASE ISSUES
+
+1. Prevent form data and passwords from entering URLs
+   Pages: Public Contact, public reset-password, Admin reset-password.
+   Current: Chromium reproduced an early Contact submit sending name, email
+   and message in the URL. With JavaScript disabled, both reset pages put
+   the new password and confirmation in the URL.
+   Expected: Forms submit to the intended POST flow when ready. Before
+   JavaScript loads or when it is disabled, submissions must keep all
+   personal data and passwords out of URLs. Check other sign-in forms for
+   the same browser fallback.
+   Verify: Test immediate submit, disabled JavaScript, and normal submit.
+   Use dummy data. Check the address bar and network requests. Confirm a
+   normal inquiry lands in the inbox and a valid reset updates the password.
+   Decision: [ ] Fix before release  [ ] Defer
+
+2. Honor an empty published property list
+   Pages: Properties, property detail and other property selectors.
+   Current: After all properties were unpublished, the CMS API returned
+   zero properties, but a built-in property URL still returned HTTP 200.
+   Expected: A successful empty CMS response means zero published properties.
+   Keep the behavior for an unavailable API as a separate decision.
+   Verify: In a test database, unpublish all properties and their published
+   dependents. Check Home, Properties, former property URLs, sitemap,
+   Contact and Pay Rent selectors. Former property URLs should return 404.
+   Republish one property and confirm only that property returns.
+   Decision: [ ] Fix before release  [ ] Defer
+
+PAGE AND API DECISIONS
+
+3. Render or remove unused public media controls
+   Pages: Property details, Available Spaces and CMS Pages & SEO.
+   Current: Gallery images and public PDF selections save and publish, but
+   public pages do not display them. Generic page image and alt text also
+   have no page-body placement.
+   Verify if implemented: Publish an image with custom alt text and a public
+   PDF. Check the intended page, image alt text and working PDF download.
+   Private tenant PDFs must stay in the authenticated Tenant Portal.
+   Decision: [ ] Display on selected pages  [ ] Remove unused controls
+             [ ] Defer
+   Pages approved for display: __________________________________________
+
+4. Decide which page copy should be editable
+   Pages: Home, Site Settings and public inner pages.
+   Current: Generic plain text saves for Home and Site Settings but does not
+   appear on the site. Home's named blocks work. Several inner-page hero
+   headings and History photos are fixed in code.
+   Verify if implemented: Publish a unique test value for each approved
+   field and see it on the target page. Confirm drafts leave live copy intact.
+   Decision: [ ] Connect selected fields  [ ] Keep current fixed copy
+             [ ] Remove unused fields  [ ] Defer
+   Fields and pages approved: ___________________________________________
+
+5. Decide whether Admin should create new public URLs
+   Area: Admin Pages & SEO and public routing.
+   Current: Adding a CMS page creates a record. It does not create a public
+   URL. Unpublishing a fixed CMS page leaves its built-in route and fallback
+   content available.
+   Verify based on decision: If new public URLs are supported, create a test
+   page, confirm its draft is hidden, publish it, then unpublish and check
+   its URL and sitemap entry. If routes stay fixed, confirm Admin clearly
+   identifies supported page slugs and what Unpublish does.
+   Decision: [ ] Build new public page routes  [ ] Keep fixed routes
+             [ ] Defer
+
+6. Decide whether Available Spaces need individual SEO pages
+   Page: Available Spaces.
+   Current: Listing cards are dynamic. Per-listing SEO fields save, but
+   there is no individual listing URL that consumes them.
+   Verify based on decision: If individual pages are approved, publish a
+   listing and check title, description, canonical and noindex behavior.
+   If cards stay on one page, review whether to remove per-listing SEO inputs.
+   Decision: [ ] Build individual listing pages  [ ] Keep cards only
+             [ ] Defer
+
+7. Preserve the selected space in a space inquiry
+   Pages: Available Spaces, Contact and Admin Inquiry Inbox.
+   Current: The contact link and stored inquiry identify the parent
+   property. They do not identify the specific space.
+   Verify if implemented: Publish two listings on the same property.
+   Submit an inquiry from each card and confirm the inbox shows the correct
+   listing and property for both. General inquiries should still work.
+   Decision: [ ] Save specific space on inquiries  [ ] Keep property only
+             [ ] Defer
+
+8. Agree on the owner and management names displayed on each page
+   Pages: Entity list, property detail, space cards, Tenant Portal, Contact
+   and Pay Rent.
+   Current: Entity listings can use Exact legal entity name. Property, space
+   and tenant views use the entity record title. Management company name is
+   fixed in several views. Contact email, phone and address use Site Settings.
+   Verify if implemented: Publish a test entity with distinct display and
+   legal names. Check each approved location, including assigned tenant
+   views. Confirm the payment payee still comes from its payment record.
+   Decision: [ ] Use approved legal name consistently
+             [ ] Keep display and legal names separate by page
+             [ ] Defer
+   Make management company name editable? [ ] Yes  [ ] No
+   Approved name and page rules: _________________________________________
+
+9. Decide which existing tenant records Admin should edit
+   Area: Admin Accounts & Roles and Tenant Services.
+   Current: Existing tenancies support active status changes only. Existing
+   notices and private PDFs support revoke/restore. There is no in-place
+   property, payment, reference, notice-text or PDF replacement flow.
+   Verify if implemented: Edit each approved field and reload Admin and
+   Tenant Portal. Confirm the updated value persists and a different
+   tenant cannot see it. Check existing private documents and tickets if
+   the tenancy assignment changes.
+   Decision: [ ] Edit tenancy assignment/reference  [ ] Edit notice text
+             [ ] Replace private PDFs  [ ] Keep current behavior  [ ] Defer
+
+10. Match form limits to server validation
+    Area: Admin CMS and public Contact inputs.
+    Current: Some UI fields accept longer text than the API stores. The API
+    can silently truncate the value.
+    Verify: Test at the API limit and one character over it. The UI should
+    prevent overflow or show a clear error. The saved value should match
+    what was accepted.
+    Decision: [ ] Align validation  [ ] Defer
+
+DEPLOYMENT VERIFICATION
+
+11. Verify public connections on the real domains
+    Current: Local Contact-to-Inbox and demo SMTP passed. Live contact,
+    uploaded media, external SMTP and GA4 were not verified. Contact's
+    browser API URL defaults to localhost if NEXT_PUBLIC_API_URL is unset.
+    Verify: From an external browser, submit an inquiry and confirm the
+    inbox and management email. Open an uploaded image and any approved
+    public PDF. Confirm canonicals and sitemap use the production domain.
+    With the real GA4 ID, verify analytics require consent and stop after
+    withdrawal. Use protected server environment settings for credentials.
+    Decision: [ ] Verify on staging/production  [ ] Defer until configured
+
+AUDIT SCOPE
+CMS, Roles, Password, MFA and Tenant Portal integration suites passed on
+disposable databases. Admin browser publish-to-website and Contact browser
+submit-to-inbox passed. Draft visibility, tenant isolation and private PDF
+access were covered. This checklist records gaps and decisions only.

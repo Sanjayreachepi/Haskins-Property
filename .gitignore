@@ -1,0 +1,16 @@
+node_modules/
+.next/
+dist/
+.env
+.env.local
+*.tsbuildinfo
+CLAUDE.md
+home-full.png
+
+uploads/
+
+# Private tenant documents must never be committed or served as public assets.
+private-tenant-files/
+
+# Private SEO/content transfer snapshots must not be committed.
+/private-exports/

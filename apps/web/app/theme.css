@@ -1,0 +1,61 @@
+/* ==========================================================================
+   HASKINS THEME — single source of truth for colors, fonts, sizes, motion.
+   Change a value here and the whole home page updates.
+   Fonts: the font files are loaded in app/layout.tsx (next/font) and exposed
+   as --ff-display / --ff-accent / --ff-mono; to swap a typeface, change it
+   there, then (if needed) adjust the --font-* tokens below.
+   ========================================================================== */
+:root {
+  /* ---- Brand colors ---- */
+  --color-primary: #f2a900; /* amber: accents, buttons, highlights */
+  --color-ink: #121211; /* main dark background / dark text */
+  --color-ink-deep: #0b0b0a; /* utility bar */
+  --color-card: #1b1a18; /* cards on dark */
+  --color-paper: #ffffff; /* light sections */
+  --color-on-dark: #f3f0e9; /* text on dark */
+  --color-on-dark-muted: #a8a49b; /* secondary text on dark */
+  --color-on-dark-soft: #bdb8ad;
+  --color-muted-light: #4d4a43; /* secondary text on light */
+  --color-line-dark: #2b2a27;
+  --color-line-dark-2: #2f2e2a;
+  --color-line-light: #e2ded5;
+  --color-ghost-word: #1e1d1b; /* giant footer wordmark */
+
+  /* ---- Logo for dark backgrounds (transparent SVG in /public/images) ---- */
+  --logo-on-dark: url("/images/logo-light.webp");
+
+  /* ---- Fonts ---- */
+  --font-body: var(--ff-display), "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--ff-display), "Arial Narrow", sans-serif;
+  --font-accent: var(--ff-accent), Georgia, serif;
+  --font-mono: var(--ff-mono), ui-monospace, monospace;
+  --display-stretch: 62%; /* width axis of the display font (62–125) */
+  --display-weight: 800;
+
+  /* ---- Type scale: ONE size per heading level, used on every page ---- */
+  --fs-h1: clamp(40px, 5.4vw, 78px); /* page / hero headline (condensed line) */
+  --fs-h1-accent: clamp(36px, 4.8vw, 70px); /* its italic serif line */
+  --fs-h2: clamp(34px, 5vw, 66px); /* section headline */
+  --fs-h2-accent: clamp(30px, 4vw, 56px);
+  --fs-h3: clamp(26px, 2.6vw, 36px); /* card / column titles */
+  --fs-lead: 26px;
+  --fs-body: 17px;
+  --fs-mono: 12px;
+  --ls-mono: 0.12em;
+  --ls-button: 0.16em;
+
+  /* ---- Layout ---- */
+  --container: 1328px;
+  --gutter: clamp(20px, 4vw, 56px);
+  --section-y: clamp(80px, 9vw, 140px);
+  --grid-size: 64px; /* blueprint grid cell */
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-io: cubic-bezier(0.7, 0, 0.2, 1);
+  --dur-fast: 0.3s;
+  --dur: 0.8s;
+  --marquee-duration: 38s;
+  --spin-duration: 22s;
+  --reel-duration: 72s; /* footer film strip speed */
+}

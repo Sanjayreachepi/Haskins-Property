@@ -1,0 +1,1 @@
+CREATE TABLE inquiries (id INT PRIMARY KEY AUTO_INCREMENT, name VARCHAR(120) NOT NULL, email VARCHAR(190) NOT NULL, category VARCHAR(80) NOT NULL, property_id INT NULL, message TEXT NOT NULL, status ENUM('new','in-progress','resolved') NOT NULL DEFAULT 'new', created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(property_id) REFERENCES cms_records(id));

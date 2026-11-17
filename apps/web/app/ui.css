@@ -1,0 +1,309 @@
+/* ==========================================================================
+   SHARED UI COMPONENTS — used on every page.
+   <Card> (components/card.tsx) and <FilterTabs> (components/filter-tabs.tsx).
+   All values come from theme.css; change a token and every card updates.
+   ========================================================================== */
+
+/* ---------- Filter tabs ---------- */
+.ui-tabbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 48px;
+  padding: 16px 0;
+  border-top: 1px solid var(--color-line-dark-2);
+  border-bottom: 1px solid var(--color-line-dark-2);
+}
+.ui-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ui-tab {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0 18px;
+  min-height: 44px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--color-on-dark);
+  border: 1.5px solid #4a4843;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s var(--ease);
+}
+.ui-tab:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+.ui-tab[aria-pressed="true"] {
+  background: var(--color-primary);
+  color: var(--color-ink);
+  border-color: var(--color-primary);
+}
+.ui-tab:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+.ui-tabs-summary {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--color-on-dark-muted);
+}
+
+/* ---------- Card grid ---------- */
+.ui-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(360px, 100%), 1fr));
+  gap: 28px;
+  margin-top: 36px;
+}
+
+/* ---------- Card ---------- */
+.ui-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-card);
+  color: var(--color-on-dark);
+  border: 1px solid var(--color-line-dark-2);
+  transition:
+    border-color var(--dur-fast) ease,
+    transform 0.6s var(--ease);
+  /* entrance: re-plays whenever the grid is re-rendered (e.g. a tab changes) */
+  animation: ui-card-in 0.7s var(--ease) backwards;
+  animation-delay: calc(var(--i, 0) * 70ms);
+}
+.ui-card:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-8px);
+}
+@keyframes ui-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(36px) scale(0.97);
+  }
+}
+.ui-card-media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 394 / 229;
+  background: #000;
+}
+.ui-card-img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.75) contrast(1.05);
+  transition:
+    transform 0.8s var(--ease),
+    filter 0.6s ease;
+}
+.ui-card:hover .ui-card-img {
+  transform: scale(1.06);
+  filter: saturate(1) contrast(1.05);
+}
+.ui-card-placeholder {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-display);
+  font-size: 64px;
+  color: #4a4843;
+}
+.ui-card-tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: var(--color-ink);
+  color: #fff;
+  padding: 7px 10px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+}
+.ui-card-idx {
+  position: absolute;
+  right: 14px;
+  bottom: 6px;
+  font-family: var(--font-display);
+  font-stretch: var(--display-stretch);
+  font-weight: var(--display-weight);
+  font-size: 64px;
+  line-height: 0.88;
+  color: #fff;
+  opacity: 0.92;
+}
+.ui-card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 14px;
+  padding: 26px 26px 28px;
+}
+.ui-card-eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 500;
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.ui-card .ui-card-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-stretch: var(--display-stretch);
+  font-weight: var(--display-weight);
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  font-size: var(--fs-h3);
+  line-height: 0.95;
+  color: #fff;
+}
+.ui-card .ui-card-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-on-dark-soft);
+}
+.ui-card-note {
+  font-size: 12px;
+  color: var(--color-primary);
+}
+.ui-card-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-line-dark-2);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-on-dark-muted);
+}
+.ui-card-arrow {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--color-on-dark);
+  color: var(--color-on-dark);
+  transition:
+    background-color var(--dur-fast),
+    color var(--dur-fast),
+    transform var(--dur-fast),
+    border-color var(--dur-fast);
+}
+.ui-card:hover .ui-card-arrow {
+  background: var(--color-primary);
+  color: var(--color-ink);
+  border-color: var(--color-primary);
+  transform: rotate(45deg);
+}
+.ui-card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ui-card {
+    animation: none;
+  }
+  .ui-card:hover,
+  .ui-tab:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   SITE-WIDE INTERACTION SYSTEM — any link/button gets the same motion,
+   whichever page it is on (old-style classes included).
+   ========================================================================== */
+.skip {
+  transition: top 0.3s var(--ease), box-shadow 0.3s;
+}
+.skip:focus {
+  box-shadow: 5px 5px 0 var(--color-primary);
+}
+.button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform 0.35s var(--ease),
+    box-shadow 0.35s var(--ease),
+    color 0.4s var(--ease-io);
+}
+.button:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 6px 6px 0 var(--color-primary);
+}
+.button:active {
+  transform: none;
+  box-shadow: none;
+}
+.text-link {
+  position: relative;
+  transition: transform 0.35s var(--ease), color 0.25s;
+}
+.text-link:hover {
+  transform: translateX(5px);
+  color: var(--color-primary);
+}
+/* inline links inside text */
+p a:not([class]),
+.muted a {
+  background-image: linear-gradient(var(--color-primary), var(--color-primary));
+  background-size: 100% 2px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.35s var(--ease), color 0.25s;
+}
+p a:not([class]):hover,
+.muted a:hover {
+  background-size: 100% 100%;
+  color: var(--color-ink);
+}
+.menu {
+  transition: background-color 0.25s, color 0.25s, transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.menu:hover {
+  background: var(--color-primary);
+  color: var(--color-ink);
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 rgb(0 0 0 / 0.4);
+}
+.menu:active {
+  transform: none;
+  box-shadow: none;
+}
+select,
+input,
+textarea {
+  transition: border-color 0.25s, box-shadow 0.35s var(--ease), transform 0.35s var(--ease);
+}
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .button:hover,
+  .text-link:hover,
+  .menu:hover {
+    transform: none;
+  }
+}

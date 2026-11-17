@@ -1,0 +1,102 @@
+{
+  "fontChoices": {
+    "display": [
+      {
+        "key": "archivo",
+        "label": "Archivo (default, condensed)",
+        "var": "--ff-display",
+        "fallback": "\"Arial Narrow\", sans-serif"
+      },
+      {
+        "key": "oswald",
+        "label": "Oswald",
+        "var": "--ff-oswald",
+        "fallback": "\"Arial Narrow\", sans-serif"
+      },
+      {
+        "key": "barlow",
+        "label": "Barlow Condensed",
+        "var": "--ff-barlow",
+        "fallback": "\"Arial Narrow\", sans-serif"
+      },
+      {
+        "key": "bebas",
+        "label": "Bebas Neue",
+        "var": "--ff-bebas",
+        "fallback": "\"Arial Narrow\", sans-serif"
+      },
+      {
+        "key": "anton",
+        "label": "Anton",
+        "var": "--ff-anton",
+        "fallback": "\"Arial Narrow\", sans-serif"
+      },
+      {
+        "key": "inter",
+        "label": "Inter (clean sans)",
+        "var": "--ff-inter",
+        "fallback": "Arial, sans-serif"
+      }
+    ],
+    "accent": [
+      {
+        "key": "instrument",
+        "label": "Instrument Serif (default)",
+        "var": "--ff-accent",
+        "fallback": "Georgia, serif"
+      },
+      {
+        "key": "playfair",
+        "label": "Playfair Display",
+        "var": "--ff-playfair",
+        "fallback": "Georgia, serif"
+      },
+      {
+        "key": "dmserif",
+        "label": "DM Serif Display",
+        "var": "--ff-dmserif",
+        "fallback": "Georgia, serif"
+      },
+      {
+        "key": "fraunces",
+        "label": "Fraunces",
+        "var": "--ff-fraunces",
+        "fallback": "Georgia, serif"
+      }
+    ],
+    "mono": [
+      {
+        "key": "plex",
+        "label": "IBM Plex Mono (default)",
+        "var": "--ff-mono",
+        "fallback": "ui-monospace, monospace"
+      },
+      {
+        "key": "jetbrains",
+        "label": "JetBrains Mono",
+        "var": "--ff-jetbrains",
+        "fallback": "ui-monospace, monospace"
+      },
+      {
+        "key": "spacemono",
+        "label": "Space Mono",
+        "var": "--ff-spacemono",
+        "fallback": "ui-monospace, monospace"
+      }
+    ]
+  },
+  "numberRanges": {
+    "numBodySize": [
+      14,
+      22
+    ],
+    "numDisplayWidth": [
+      62,
+      125
+    ],
+    "numContainer": [
+      1000,
+      1600
+    ]
+  }
+}

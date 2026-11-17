@@ -1,0 +1,2 @@
+ALTER TABLE cms_records ADD COLUMN published_entity_id INT NULL, ADD COLUMN published_property_id INT NULL, ADD CONSTRAINT fk_published_entity FOREIGN KEY(published_entity_id) REFERENCES cms_records(id), ADD CONSTRAINT fk_published_property FOREIGN KEY(published_property_id) REFERENCES cms_records(id);
+UPDATE cms_records SET published_entity_id=entity_id,published_property_id=property_id WHERE published_payload IS NOT NULL;
