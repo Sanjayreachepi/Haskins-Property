@@ -51,8 +51,16 @@ export default async function Page() {
               Our foundation
             </div>
             <h2 className="hk-h">
-              <span className="disp hk-d2h hk-white">The earth moves</span>
-              <span className="serif hk-a2c hk-amber">with Haskins.</span>
+              <span className="disp hk-d3 hk-white">The earth</span>
+              <span className="disp hk-d3 hk-white">moves with</span>
+              {/* "Haskins" is the trademark: always the vector logo file, never typed text */}
+              <img
+                className="hk-then-logo"
+                src="/images/logo.svg"
+                alt="Haskins Industrial Complex"
+                width={612}
+                height={264}
+              />
             </h2>
             <p className="hk-lead-sm">{block(page, "history", "foundationLead")}</p>
             <p className="hk-body hk-soft">

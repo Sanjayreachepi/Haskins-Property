@@ -93,7 +93,7 @@ export const homeBlocks: PageBlock[] = [
   t("6 · Then and now", "thenKicker", "Small label", "Then and now"),
   t("6 · Then and now", "then1", "Headline — line 1", "The earth"),
   t("6 · Then and now", "then2", "Headline — line 2", "moves with"),
-  t("6 · Then and now", "then3", "Headline — italic line", "Haskins."),
+  t("6 · Then and now", "then3", "Headline — line 3 (not shown: the site uses the Haskins SVG logo here)", "Haskins."),
   t("6 · Then and now", "thenNowText", "Paragraph", "Our roots in the industrial equipment business gave us a deep understanding of this industry and this community. Today, we continue that legacy through responsible ownership and management of industrial properties.", true),
   t("6 · Then and now", "thenBtnLabel", "Button — label", "Our history"),
   t("6 · Then and now", "thenBtnUrl", "Button — link", "/history"),
@@ -194,7 +194,7 @@ export const layoutBlocks: PageBlock[] = [
 /* ---------------------------------------------------------------- DESIGN */
 const c = (key: string, label: string, def: string) => t("Colors", key, label, def);
 export const designBlocks: PageBlock[] = [
-  t("Logo", "logoImage", "Logo (transparent, light lettering for the dark header and footer)", IMG + "logo-light.webp"),
+  t("Logo", "logoImage", "Footer logo (transparent SVG, light lettering for the dark footer)", IMG + "logo-light.svg"),
   c("colorPrimary", "Brand accent (buttons, highlights)", "#f2a900"),
   c("colorInk", "Dark background / dark text", "#121211"),
   c("colorInkDeep", "Top bar background", "#0b0b0a"),

@@ -21,8 +21,9 @@
   --color-line-light: #e2ded5;
   --color-ghost-word: #1e1d1b; /* giant footer wordmark */
 
-  /* ---- Logo for dark backgrounds (transparent SVG in /public/images) ---- */
-  --logo-on-dark: url("/images/logo-light.webp");
+  /* ---- Logo (the trademark vector files in /public/images — always SVG) ---- */
+  --logo-on-dark: url("/images/logo-light.svg"); /* light lettering: footer and other dark areas */
+  --logo-on-light: url("/images/logo.svg"); /* dark lettering: white header */
 
   /* ---- Fonts ---- */
   --font-body: var(--ff-display), "Helvetica Neue", Arial, sans-serif;

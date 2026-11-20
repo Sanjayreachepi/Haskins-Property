@@ -9,7 +9,7 @@
 .home {
   font-family: var(--font-body);
   color: var(--color-ink);
-  background: var(--color-ink);
+  background: var(--color-paper);
   overflow-x: clip;
   line-height: normal;
 }
@@ -162,6 +162,13 @@
   font-size: clamp(58px, 7vw, 110px);
   line-height: 1.02;
   margin-top: 6px;
+}
+.home .hk-then-logo {
+  display: block;
+  width: clamp(240px, 30vw, 420px);
+  height: auto;
+  max-width: 100%;
+  margin-top: 18px;
 }
 .home .hk-a3b {
   font-size: clamp(50px, 6vw, 94px);
@@ -338,6 +345,9 @@
   padding: 20px 28px;
   font-size: 13px;
 }
+.home .hk-hero .hk-btn-ghost-dark {
+  border-color: rgb(255 255 255 / 0.6);
+}
 .home .hk-btn-ghost-dark:hover {
   border-color: var(--color-primary);
 }
@@ -364,25 +374,31 @@
 }
 
 body:has(.home) {
-  background: var(--color-ink);
+  background: var(--color-paper);
 }
 /* ---------- 1 · Hero ---------- */
 .home .hk-hero {
   position: relative;
 }
+/* full-width banner: image covers the whole width, copy sits on a left-weighted shade */
 .home .hk-hero-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(560px, 100%), 1fr));
-  min-height: 780px;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  min-height: min(88vh, 820px);
 }
 .home .hk-hero-copy {
   position: relative;
   z-index: 2;
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 32px;
-  padding: clamp(56px, 7vw, 104px) clamp(20px, 5vw, 80px) 64px;
+  padding: clamp(72px, 9vw, 128px) var(--gutter);
 }
 .home .hk-hero-d {
   display: block;
@@ -420,19 +436,32 @@ body:has(.home) {
   }
 }
 .home .hk-hero-media {
-  position: relative;
-  min-height: 520px;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   overflow: hidden;
-  border-left: 1px solid #262522;
 }
 .home .hk-hero-media > img {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+  max-width: none;
   object-fit: cover;
-  filter: grayscale(1) contrast(1.15) brightness(0.82);
+  filter: grayscale(1) contrast(1.1) brightness(0.9);
   animation: hk-zoom 18s var(--ease) both;
+}
+/* shade so the white headline stays readable over the photo */
+.home .hk-hero-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgb(18 18 17 / 0.86) 0%, rgb(18 18 17 / 0.62) 42%, rgb(18 18 17 / 0.12) 78%, rgb(18 18 17 / 0) 100%),
+    linear-gradient(0deg, rgb(18 18 17 / 0.4) 0%, rgb(18 18 17 / 0) 35%);
+}
+.home .hk-hero-media > :not(img) {
+  z-index: 1;
 }
 @keyframes hk-zoom {
   from {
@@ -501,8 +530,8 @@ body:has(.home) {
 }
 .home .hk-badge {
   position: absolute;
-  left: 40px;
-  bottom: 40px;
+  right: 56px;
+  top: 56px;
   width: 150px;
   height: 150px;
   animation: hk-spin var(--spin-duration) linear infinite;
@@ -573,6 +602,22 @@ body:has(.home) {
   transition:
     transform var(--dur-fast),
     color var(--dur-fast);
+}
+/* hero quick links: white strip under the banner */
+.home .hk-quick-banner {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-top: 0;
+  border-bottom: 1px solid var(--color-line-light);
+}
+.home .hk-quick-banner .hk-quick {
+  border-right-color: var(--color-line-light);
+}
+.home .hk-quick-n {
+  color: var(--color-muted-light);
+}
+.home .hk-quick-banner .hk-quick-icon {
+  color: var(--color-ink);
 }
 .home .hk-quick-icon.plain {
   border: 0;
@@ -2338,6 +2383,88 @@ body:has(.home) {
   margin: 12px 0;
 }
 
+/* ---------- Inner pages: white theme ----------
+   Every inner page is wrapped in <PageShell> (.home.hk-inner). Its "dark" sections
+   (page hero, lists, forms) render white by re-pointing the dark-surface tokens. */
+.home.hk-inner .hk-dark {
+  --color-on-dark: var(--color-ink);
+  --color-on-dark-muted: var(--color-muted-light);
+  --color-on-dark-soft: var(--color-muted-light);
+  --color-card: var(--color-paper);
+  --color-line-dark: var(--color-line-light);
+  --color-line-dark-2: var(--color-line-light);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+.home.hk-inner .hk-dark.hk-blueprint {
+  background-image:
+    linear-gradient(rgb(18 18 17 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(18 18 17 / 0.05) 1px, transparent 1px);
+}
+.home.hk-inner .hk-dark + .hk-dark {
+  border-top: 1px solid var(--color-line-light);
+}
+.home.hk-inner .hk-sub-hero + .hk-dark {
+  border-top: 0;
+}
+.home.hk-inner .hk-dark .hk-white {
+  color: var(--color-ink);
+}
+.home.hk-inner .hk-dark .hk-amber {
+  color: var(--color-ink);
+}
+/* amber text fails contrast on white: accent lines become the amber highlight used elsewhere */
+.home.hk-inner .hk-dark .serif.hk-amber {
+  align-self: flex-start;
+  background: var(--color-primary);
+  padding: 0 0.14em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.home.hk-inner .hk-dark .hk-kicker:not(.hk-kicker-ink) {
+  color: var(--color-muted-light);
+}
+.home.hk-inner .hk-dark .hk-kicker:not(.hk-kicker-ink) i {
+  height: 3px;
+  background: var(--color-primary);
+}
+.home.hk-inner .hk-dark .hk-btn-ghost-dark {
+  --shadow: var(--color-ink);
+  border-color: var(--color-ink);
+}
+/* headings and labels that were hard-coded white for the dark version */
+.home.hk-inner .hk-dark :is(.hk-stat dd, .hk-callout, .hk-tiles .disp, .hk-feat-t, .hk-routes a, .hk-flow h3) {
+  color: var(--color-ink);
+}
+.home.hk-inner .hk-dark :is(.hk-stat dd.disp, .hk-tiles li:hover .disp) {
+  color: var(--color-ink);
+  -webkit-text-stroke: 0;
+}
+.home.hk-inner .hk-dark .hk-stats {
+  border-top-width: 3px;
+}
+.home.hk-inner .hk-dark :is(.hk-feat-item, .hk-flow li, .hk-callout) {
+  background: #faf9f6;
+}
+.home.hk-inner .hk-dark .hk-routes a {
+  border-color: var(--color-line-light);
+  background: var(--color-paper);
+}
+.home.hk-inner .hk-dark .hk-routes a:hover {
+  border-color: var(--color-ink);
+  background: rgb(242 169 0 / 0.12);
+}
+.home.hk-inner .hk-dark .hk-routes a:hover .hk-routes-arrow {
+  color: var(--color-ink);
+}
+.home.hk-inner .hk-dark :is(.hk-feat-n, .hk-flow-n) {
+  -webkit-text-stroke-color: rgb(18 18 17 / 0.18);
+}
+/* dark payment card on the property page: its text link was unreadable */
+.home .hk-pay-result .text-link {
+  color: var(--color-primary);
+}
+
 /* ---------- Scroll reveal (only hidden when JS can reveal it) ---------- */
 @media (scripting: enabled) {
   .home [data-reveal] {
@@ -2358,15 +2485,17 @@ body:has(.home) {
   .home .hk-hero-grid {
     min-height: 0;
   }
-  .home .hk-hero-media {
-    border-left: 0;
-    border-top: 1px solid #262522;
+  .home .hk-hero-media::after {
+    background: rgb(18 18 17 / 0.72);
+  }
+  .home .hk-hero-copy {
+    padding-top: 104px; /* clear the "Fig. 01" label */
   }
   .home .hk-badge {
-    width: 110px;
-    height: 110px;
-    left: 24px;
-    bottom: 24px;
+    display: none;
+  }
+  .home .hk-quick-banner .hk-quick {
+    border-bottom-color: var(--color-line-light);
   }
   .home .hk-fig-top {
     left: 64px;

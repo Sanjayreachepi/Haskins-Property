@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { normalize, parseRedirects, type Redirect } from "./lib/redirects";
+import { ACCESS_COOKIE, ACCESS_PATH, gateEnabled, hasAccess } from "./lib/site-access";
 
 /**
  * Per-request Content-Security-Policy with a nonce (Next.js applies the nonce to its own scripts and
@@ -45,7 +46,51 @@ async function redirectFor(pathname: string): Promise<Redirect | undefined> {
   return redirectMap.get(normalize(pathname));
 }
 
+/** Files the password page itself needs (logo); everything else is behind the gate. */
+const GATE_OPEN = new Set(["/images/logo.svg", "/favicon.ico"]);
+
+/**
+ * Pre-launch password gate (SITE_PASSWORD). Returns a response when the request must be stopped,
+ * or null when it may continue.
+ */
+async function gate(request: NextRequest): Promise<NextResponse | null> {
+  if (!gateEnabled()) return null;
+  const { pathname, search } = request.nextUrl;
+  if (pathname === ACCESS_PATH || GATE_OPEN.has(pathname)) return null;
+  if (await hasAccess(request.cookies.get(ACCESS_COOKIE)?.value)) return null;
+  // robots.txt: tell crawlers to stay out entirely while the site is private
+  if (pathname === "/robots.txt")
+    return new NextResponse("User-agent: *\nDisallow: /\n", { headers: { "Content-Type": "text/plain" } });
+  const isPage =
+    (request.method === "GET" || request.method === "HEAD") &&
+    !pathname.startsWith("/api/") &&
+    !request.headers.has("next-router-prefetch") &&
+    !request.headers.get("rsc");
+  if (!isPage) return new NextResponse("Password required", { status: 401 });
+  const url = new URL(ACCESS_PATH, request.url);
+  url.search = "";
+  url.searchParams.set("next", pathname + search);
+  return NextResponse.redirect(url, 307);
+}
+
 export async function proxy(request: NextRequest) {
+  const blocked = await gate(request);
+  if (blocked) {
+    blocked.headers.set("X-Robots-Tag", "noindex, nofollow");
+    blocked.headers.set("Cache-Control", "no-store");
+    return blocked;
+  }
+  const { pathname } = request.nextUrl;
+  const pagePath =
+    !pathname.startsWith("/api/") &&
+    !/^\/(robots\.txt|sitemap\.xml|images\/|favicon\.ico)/.test(pathname) &&
+    !request.headers.has("next-router-prefetch") &&
+    request.headers.get("purpose") !== "prefetch";
+  if (!pagePath) {
+    const res = NextResponse.next();
+    if (gateEnabled()) res.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return res;
+  }
   if (request.method === "GET" || request.method === "HEAD") {
     const rule = await redirectFor(request.nextUrl.pathname);
     if (rule) {
@@ -79,17 +124,12 @@ export async function proxy(request: NextRequest) {
 
   const response = NextResponse.next({ request: { headers } });
   response.headers.set("Content-Security-Policy", csp);
+  if (gateEnabled()) response.headers.set("X-Robots-Tag", "noindex, nofollow");
   return response;
 }
 
 export const config = {
-  matcher: [
-    {
-      source: "/((?!api|_next/static|_next/image|icon.svg|robots.txt|sitemap.xml).*)",
-      missing: [
-        { type: "header", key: "next-router-prefetch" },
-        { type: "header", key: "purpose", value: "prefetch" },
-      ],
-    },
-  ],
+  // Everything except Next's own build assets and the favicon: the password gate must also cover
+  // /api, images, robots.txt and sitemap.xml. CSP + redirects still apply to pages only (see pagePath).
+  matcher: ["/((?!_next/static|_next/image|icon.svg).*)"],
 };

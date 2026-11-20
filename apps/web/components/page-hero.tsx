@@ -3,7 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 const delay = (ms: number) => ({ "--d": `${ms}ms` }) as CSSProperties;
 
 /**
- * Dark blueprint hero used at the top of every inner page.
+ * Blueprint hero used at the top of every inner page (rendered white via `.hk-inner` in home.css).
  * `title` = condensed display line, `accent` = italic serif amber line,
  * `aside` = optional content on the right (stats, image…).
  */

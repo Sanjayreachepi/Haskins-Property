@@ -17,7 +17,7 @@ export default function PageShell({
   crumb?: { name: string; path: string }[];
 }) {
   return (
-    <div className="home">
+    <div className="home hk-inner">
       {crumb && <JsonLd data={breadcrumbSchema(crumb)} />}
       <HomeEffects />
       {children}

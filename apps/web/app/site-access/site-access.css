@@ -1,0 +1,141 @@
+/* Password page for the private preview (lib/site-access.ts). Values from theme.css. */
+
+/* the page stands alone: no site header, top bar, footer or cookie banner */
+body:has(.gate) .topbar,
+body:has(.gate) header,
+body:has(.gate) footer,
+body:has(.gate) .skip,
+body:has(.gate) .ck-banner {
+  display: none;
+}
+body:has(.gate) {
+  background: var(--color-paper);
+}
+
+.gate {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 40px 16px;
+  background-color: var(--color-paper);
+  background-image:
+    linear-gradient(rgb(18 18 17 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(18 18 17 / 0.05) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  font-family: var(--font-body);
+  color: var(--color-ink);
+}
+.gate-card {
+  width: 100%;
+  max-width: 460px;
+  padding: clamp(28px, 6vw, 44px);
+  background: var(--color-paper);
+  border: 1px solid var(--color-line-light);
+  border-top: 6px solid var(--color-primary);
+  box-shadow: 10px 10px 0 rgb(18 18 17 / 0.08);
+}
+.gate-logo {
+  display: block;
+  width: min(260px, 100%);
+  height: auto;
+  margin: 0 auto 28px;
+}
+.gate-kicker {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 12px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+  color: var(--color-muted-light);
+}
+.gate-kicker i {
+  width: 36px;
+  height: 3px;
+  background: var(--color-primary);
+}
+.gate-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-stretch: var(--display-stretch);
+  font-weight: var(--display-weight);
+  font-size: clamp(32px, 7vw, 42px);
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: normal;
+}
+.gate-text {
+  margin: 14px 0 26px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-muted-light);
+}
+.gate-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.gate-form label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--ls-mono);
+  text-transform: uppercase;
+}
+.gate-form input[type="password"] {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  font: inherit;
+  font-size: 16px;
+  color: var(--color-ink);
+  background: var(--color-paper);
+  border: 1.5px solid var(--color-ink);
+  border-radius: 0;
+}
+.gate-form input[type="password"]:focus {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 1px;
+}
+.gate-form input[aria-invalid="true"] {
+  border-color: #b42318;
+}
+.gate-error {
+  margin: 0;
+  font-size: 14px;
+  color: #b42318;
+}
+.gate-form button {
+  margin-top: 10px;
+  min-height: 52px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: var(--ls-button);
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--color-ink);
+  border: 1.5px solid var(--color-ink);
+  transition:
+    transform var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease),
+    background-color var(--dur-fast),
+    color var(--dur-fast);
+}
+.gate-form button:hover,
+.gate-form button:focus-visible {
+  background: var(--color-primary);
+  color: var(--color-ink);
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0 var(--color-ink);
+}
+@media (prefers-reduced-motion: reduce) {
+  .gate-form button {
+    transition: none;
+  }
+  .gate-form button:hover {
+    transform: none;
+  }
+}

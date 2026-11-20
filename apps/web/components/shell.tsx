@@ -36,7 +36,7 @@ export function Header({ data }: { data: ShellData }) {
         <Link href="/" aria-label="Haskins home">
           <img
             className="logo"
-            src="/images/logo.png"
+            src="/images/logo.svg"
             alt={data.headerLogoAlt}
           />
         </Link>
@@ -109,7 +109,7 @@ export function Footer({
           <div className="ft-brand">
             <img
               className="ft-logo"
-              src="/images/logo.png"
+              src="/images/logo-light.svg"
               alt={data.footerLogoAlt}
             />
             <h2 className="ft-h">

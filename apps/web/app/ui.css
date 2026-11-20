@@ -218,6 +218,53 @@
   outline: 2px solid var(--color-primary);
   outline-offset: 4px;
 }
+/* ---------- Light variant: tabs + cards inside a white (.hk-light) section ---------- */
+:is(.hk-light, .hk-inner .hk-dark) .ui-tabbar {
+  border-color: var(--color-line-light);
+}
+:is(.hk-light, .hk-inner .hk-dark) .ui-tab {
+  color: var(--color-ink);
+  border-color: var(--color-line-light);
+}
+:is(.hk-light, .hk-inner .hk-dark) .ui-tab:hover {
+  border-color: var(--color-ink);
+}
+:is(.hk-light, .hk-inner .hk-dark) .ui-tab[aria-pressed="true"] {
+  background: var(--color-ink);
+  color: #fff;
+  border-color: var(--color-ink);
+}
+:is(.hk-light, .hk-inner .hk-dark) .ui-tabs-summary {
+  color: var(--color-muted-light);
+}
+:is(.hk-light, .hk-inner .hk-dark) .ui-card {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  border-color: var(--color-line-light);
+}
+:is(.hk-light, .hk-inner .hk-dark) .ui-card:hover {
+  border-color: var(--color-ink);
+  box-shadow: 8px 8px 0 var(--color-primary);
+}
+:is(.hk-light, .hk-inner .hk-dark) .ui-card-eyebrow,
+:is(.hk-light, .hk-inner .hk-dark) .ui-card .ui-card-text,
+:is(.hk-light, .hk-inner .hk-dark) .ui-card-foot {
+  color: var(--color-muted-light);
+}
+:is(.hk-light, .hk-inner .hk-dark) .ui-card .ui-card-title {
+  color: var(--color-ink);
+}
+:is(.hk-light, .hk-inner .hk-dark) .ui-card-note {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+:is(.hk-light, .hk-inner .hk-dark) .ui-card-foot {
+  border-top-color: var(--color-line-light);
+}
+:is(.hk-light, .hk-inner .hk-dark) .ui-card-arrow {
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
 @media (prefers-reduced-motion: reduce) {
   .ui-card {
     animation: none;

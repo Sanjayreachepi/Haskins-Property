@@ -122,6 +122,7 @@ Website / admin environment:
 | `NEXT_PUBLIC_API_URL` | Browser-facing API address (uploaded images, contact form) |
 | `NEXT_PUBLIC_SITE_URL` | Public site address for the sitemap and robots.txt |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Optional Google Analytics 4 ID (loads only after consent) |
+| `SITE_PASSWORD` | Private preview: when set, every page, image and `/api` route asks for this password first (`/site-access`, 30-day cookie, `noindex`). Remove it to launch publicly. Changing it signs everyone out |
 | `NEXT_PUBLIC_WEB_URL` (admin) | Link target for "View website" |
 
 ## Security

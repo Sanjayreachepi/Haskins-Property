@@ -91,8 +91,33 @@ export default async function Home() {
       <HomeEffects />
 
       {/* ============ 1 · HERO ============ */}
-      <section id="top" className="hk-dark hk-blueprint hk-hero">
+      <section id="top" className="hk-dark hk-hero">
+        {/* full-width banner: the legacy aerial fills the whole width, copy sits on top */}
         <div className="hk-hero-grid">
+          <div className="hk-hero-media">
+            <img
+              src={img("heroImage")}
+              alt={b("heroImageAlt")}
+              fetchPriority="high"
+              decoding="async"
+            />
+            <span className="hk-corner tl" aria-hidden="true" />
+            <span className="hk-corner tr" aria-hidden="true" />
+            <span className="hk-corner bl" aria-hidden="true" />
+            <span className="hk-corner br" aria-hidden="true" />
+            <span className="mono hk-fig hk-fig-top">{b("heroFigTop")}</span>
+            <span className="mono hk-fig hk-fig-bottom">{b("heroFigBottom")}</span>
+            <svg className="hk-badge" aria-hidden="true" viewBox="0 0 200 200">
+              <defs>
+                <path id="hkcircle" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0" />
+              </defs>
+              <circle cx="100" cy="100" r="98" fill="#121211" stroke="#f2a900" strokeWidth="1.5" />
+              <text fill="#ffffff" className="hk-badge-text">
+                <textPath href="#hkcircle" textLength="470" lengthAdjust="spacing">{b("heroBadge")}</textPath>
+              </text>
+              <path d="M82 118 L118 82 M92 82 H118 V108" fill="none" stroke="#f2a900" strokeWidth="5" strokeLinecap="square" />
+            </svg>
+          </div>
           <div className="hk-hero-copy">
             <div className="mono hk-kicker hk-in" style={delay(100)}>
               <i />
@@ -115,41 +140,13 @@ export default async function Home() {
               </Link>
             </div>
           </div>
-
-          <div className="hk-hero-media">
-            <img
-              src={img("heroImage")}
-              alt={b("heroImageAlt")}
-              fetchPriority="high"
-              decoding="async"
-            />
-            <span className="hk-cross h" aria-hidden="true" />
-            <span className="hk-cross v" aria-hidden="true" />
-            <span className="hk-cross-ring" aria-hidden="true" />
-            <span className="hk-corner tl" aria-hidden="true" />
-            <span className="hk-corner tr" aria-hidden="true" />
-            <span className="hk-corner bl" aria-hidden="true" />
-            <span className="hk-corner br" aria-hidden="true" />
-            <span className="mono hk-fig hk-fig-top">{b("heroFigTop")}</span>
-            <span className="mono hk-fig hk-fig-bottom">{b("heroFigBottom")}</span>
-            <svg className="hk-badge" aria-hidden="true" viewBox="0 0 200 200">
-              <defs>
-                <path id="hkcircle" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0" />
-              </defs>
-              <circle cx="100" cy="100" r="98" fill="#121211" stroke="#f2a900" strokeWidth="1.5" />
-              <text fill="#ffffff" className="hk-badge-text">
-                <textPath href="#hkcircle" textLength="470" lengthAdjust="spacing">{b("heroBadge")}</textPath>
-              </text>
-              <path d="M82 118 L118 82 M92 82 H118 V108" fill="none" stroke="#f2a900" strokeWidth="5" strokeLinecap="square" />
-            </svg>
-          </div>
         </div>
 
-        <div className="hk-quick-row">
+        <div className="hk-quick-row hk-quick-banner">
           {[1, 2, 3].map((i) => [String(i).padStart(2, "0"), b(`quick${i}Label`), b(`quick${i}Url`)]).map(([n, label, href]) => (
             <Link key={n} className="hk-quick" href={href}>
               <span className="hk-quick-l">
-                <span className="mono hk-amber">{n}</span>
+                <span className="mono hk-quick-n">{n}</span>
                 <span className="hk-quick-label">{label}</span>
               </span>
               <span className="hk-quick-icon" aria-hidden="true">
@@ -257,20 +254,20 @@ export default async function Home() {
       <Entities properties={properties} />
 
       {/* ============ 3 · PORTFOLIO ============ */}
-      <section id="portfolio" className="hk-dark hk-blueprint">
+      <section id="portfolio" className="hk-light hk-blueprint-l hk-portfolio-light">
         <div className="hk-wrap">
           <div className="hk-head-row" data-reveal>
             <div className="hk-stack">
-              <div className="mono hk-kicker">
+              <div className="mono hk-kicker hk-kicker-light">
                 <i />
                 {b("portfolioKicker")}
               </div>
               <h2 className="hk-h hk-h-inline">
-                <span className="disp hk-d2 hk-white">{b("portfolioWord1")}</span>
-                <span className="serif hk-a2b hk-amber">{b("portfolioWord2")}</span>
+                <span className="disp hk-d2">{b("portfolioWord1")}</span>
+                <span className="serif mark hk-a2b">{b("portfolioWord2")}</span>
               </h2>
             </div>
-            <Link className="hk-btn hk-btn-amber" href={b("portfolioBtnUrl")}>
+            <Link className="hk-btn hk-btn-ink" href={b("portfolioBtnUrl")}>
               {b("portfolioBtnLabel")} <Arrow />
             </Link>
           </div>
@@ -289,7 +286,14 @@ export default async function Home() {
             <h2 className="hk-h hk-h-start">
               <span className="disp hk-d3">{b("then1")}</span>
               <span className="disp hk-d3">{b("then2")}</span>
-              <span className="serif mark hk-a3">{b("then3")}</span>
+              {/* "Haskins" is the trademark: always the vector logo file, never typed text */}
+              <img
+                className="hk-then-logo"
+                src="/images/logo.svg"
+                alt="Haskins Industrial Complex"
+                width={612}
+                height={264}
+              />
             </h2>
             <p className="hk-body hk-muted hk-narrow">
               {b("thenNowText")}
